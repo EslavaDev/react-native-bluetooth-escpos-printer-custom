@@ -170,10 +170,28 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void isBluetoothEnabled(final Promise promise) {
         BluetoothAdapter adapter = this.getBluetoothAdapter();
+            pairedDevice = new JSONArray();
+             WritableMap params = Arguments.createMap();
         if(adapter!=null && adapter.isEnabled()){
             emitRNEvent(EVENT_DEVICE_ALREADY, null);
+            Set<BluetoothDevice> boundDevices = adapter.getBondedDevices();
+            for (BluetoothDevice d : boundDevices) {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("name", d.getName());
+                    obj.put("address", d.getAddress());
+                    obj.put("deviceClass", d.getBluetoothClass().getDeviceClass());
+                    obj.put("majorDeviceClass", d.getBluetoothClass().getMajorDeviceClass());
+                    pairedDevice.put(obj);
+                } catch (Exception e) {
+                    //ignore.
+                }
+            }
+            Log.d(TAG, "ble Enabled");
         }
-        promise.resolve(adapter!=null && adapter.isEnabled());
+        params.putString("devices", pairedDevice.toString());
+        params.pushBoolean("enabled",adapter!=null && adapter.isEnabled());
+        promise.resolve(params);
     }
 
     @ReactMethod
