@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        jcenter { url "https://jcenter.bintray.com/" }
+        maven {url "https://repo.spring.io/plugins-release/"}
+        mavenCentral()
+        maven {
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url "$rootDir/../node_modules/react-native/android"
+        }
+        maven {
+            url 'https://maven.google.com'
+        }
+        google()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0'
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+    lintOptions {
+        abortOnError false
+    }
+    sourceSets {
+        main {
+            aidl.srcDirs = ['src/main/java']
+        }
+    }
+}
+
+repositories {
+    jcenter { url "https://jcenter.bintray.com/" }
+    maven {url "https://repo.spring.io/plugins-release/"}
+    mavenCentral()
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url "$rootDir/../node_modules/react-native/android"
+    }
+    maven {
+        url 'https://maven.google.com'
+    }
+    google()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation group: 'androidx.legacy', name: 'legacy-support-v4', version: '1.0.0'
+    implementation "com.google.zxing:core:3.3.0"
+}

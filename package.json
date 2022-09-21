@@ -1,0 +1,35 @@
+{
+  "name": "react-native-bluetooth-escpos-printer-custom",
+  "version": "0.0.15",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "deprecated": false,
+  "description": "React-Native plugin for the bluetooth ESC/POS printers.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EslavaDev/react-native-bluetooth-escpos-printer-custom.git"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.55.4"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "jetifier": "^1.6.6",
+    "jetify": "^1.0.2"
+  },
+  "keywords": [
+    "react-native",
+    "ESC",
+    "POS",
+    "Bluetooth",
+    "Printer"
+  ],
+  "author": "EslavaDev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EslavaDev/react-native-bluetooth-escpos-printer-custom/issues"
+  },
+  "homepage": "https://github.com/EslavaDev/react-native-bluetooth-escpos-printer-custom#readme"
+}
