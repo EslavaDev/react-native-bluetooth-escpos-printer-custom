@@ -171,7 +171,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
     public void isBluetoothEnabled(final Promise promise) {
         BluetoothAdapter adapter = this.getBluetoothAdapter();
         if(adapter!=null && adapter.isEnabled()){
-            emitRNEvent(EVENT_DEVICE_ALREADY);
+            emitRNEvent(EVENT_DEVICE_ALREADY, null);
         }
         promise.resolve(adapter!=null && adapter.isEnabled());
     }
