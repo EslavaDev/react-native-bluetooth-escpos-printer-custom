@@ -36,6 +36,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
     private static final String TAG = "BluetoothManager";
     private final ReactApplicationContext reactContext;
     public static final String EVENT_DEVICE_ALREADY_PAIRED = "EVENT_DEVICE_ALREADY_PAIRED";
+    public static final String EVENT_DEVICE_ALREADY = "EVENT_DEVICE_ALREADY";
     public static final String EVENT_DEVICE_FOUND = "EVENT_DEVICE_FOUND";
     public static final String EVENT_DEVICE_DISCOVER_DONE = "EVENT_DEVICE_DISCOVER_DONE";
     public static final String EVENT_CONNECTION_LOST = "EVENT_CONNECTION_LOST";
@@ -169,6 +170,9 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void isBluetoothEnabled(final Promise promise) {
         BluetoothAdapter adapter = this.getBluetoothAdapter();
+        if(adapter!=null && adapter.isEnabled()){
+            emitRNEvent(EVENT_DEVICE_ALREADY);
+        }
         promise.resolve(adapter!=null && adapter.isEnabled());
     }
 
