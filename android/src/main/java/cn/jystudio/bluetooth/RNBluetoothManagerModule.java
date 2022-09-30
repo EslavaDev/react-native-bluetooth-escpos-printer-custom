@@ -170,7 +170,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
     @ReactMethod
     public void isBluetoothEnabled(final Promise promise) {
         BluetoothAdapter adapter = this.getBluetoothAdapter();
-            pairedDevice = new JSONArray();
+            pairedDeivce = new JSONArray();
              WritableMap params = Arguments.createMap();
         if(adapter!=null && adapter.isEnabled()){
             emitRNEvent(EVENT_DEVICE_ALREADY, null);
@@ -182,15 +182,42 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                     obj.put("address", d.getAddress());
                     obj.put("deviceClass", d.getBluetoothClass().getDeviceClass());
                     obj.put("majorDeviceClass", d.getBluetoothClass().getMajorDeviceClass());
-                    pairedDevice.put(obj);
+                    pairedDeivce.put(obj);
                 } catch (Exception e) {
                     //ignore.
                 }
             }
-            Log.d(TAG, "ble Enabled");
+            Log.d(TAG, "ble Enabled an Scan");
         }
-        params.putString("devices", pairedDevice.toString());
-        params.pushBoolean("enabled",adapter!=null && adapter.isEnabled());
+        params.putString("devices", pairedDeivce.toString());
+        String str1 = new Boolean(adapter!=null && adapter.isEnabled()).toString();
+        params.putString("enabled", str1);
+        promise.resolve(params);
+    }
+
+    @ReactMethod
+    public void scanPaired(final Promise promise) {
+        BluetoothAdapter adapter = this.getBluetoothAdapter();
+            pairedDeivce = new JSONArray();
+             WritableMap params = Arguments.createMap();
+        if(adapter!=null && adapter.isEnabled()){
+            emitRNEvent(EVENT_DEVICE_ALREADY, null);
+            Set<BluetoothDevice> boundDevices = adapter.getBondedDevices();
+            for (BluetoothDevice d : boundDevices) {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("name", d.getName());
+                    obj.put("address", d.getAddress());
+                    obj.put("deviceClass", d.getBluetoothClass().getDeviceClass());
+                    obj.put("majorDeviceClass", d.getBluetoothClass().getMajorDeviceClass());
+                    pairedDeivce.put(obj);
+                } catch (Exception e) {
+                    //ignore.
+                }
+            }
+            Log.d(TAG, "Scan Paired");
+        }
+        params.putString("devices", pairedDeivce.toString());
         promise.resolve(params);
     }
 
